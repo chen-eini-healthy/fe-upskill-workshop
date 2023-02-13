@@ -1,34 +1,39 @@
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useState } from "react";
-import { getItems } from "../data";
 import { css } from "@emotion/react";
+import { getItems } from "../server/data";
+import TaskIcon from "@mui/icons-material/Task";
+import { Paper } from "@mui/material";
 
 const itemsCss = css`
-  width: 500px;
-  height: 500px;
+  margin: 0 100px;
   overflow: auto;
-  background-color: beige;
 `;
 
 const itemCss = css`
+  padding: 8px;
+  font-size: 12px;
   margin-bottom: 8px;
+  border: 1px black solid;
 `;
 
 export function ItemList() {
   const [items, setItmes] = useState([]);
 
   useEffect(() => {
-    getItems(10000).then((data) => setItmes(data));
+    getItems(1000).then((data) => setItmes(data));
   });
 
   return (
     <div css={itemsCss}>
-      {items.map(({ id, title, description }) => (
-        <div key={id} css={itemCss}>
-          <h3>{title}</h3>
+      {items.map(({ id, title, description, status }) => (
+        <Paper key={id} css={itemCss}>
+          <TaskIcon />
+          <h3>{`${title} #${id}`}</h3>
           <p>{description}</p>
-        </div>
+          <strong>{`Status: ${status}`}</strong>
+        </Paper>
       ))}
     </div>
   );

@@ -6,7 +6,6 @@ import { ItemList } from "./components/ItemList";
 const appCss = css`
   display: flex;
   justify-content: center;
-  padding-top: 100px;
 `;
 
 function App() {
